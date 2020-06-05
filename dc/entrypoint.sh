@@ -133,7 +133,10 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-cat $OUTPUT_FILE
+# cat $OUTPUT_FILE
+
+# TODO: make sure the following line does not throw an error
+python deepcode_to_sarif.py $OUTPUT_FILE
 
 echo "Success." >&3
 exit 0
