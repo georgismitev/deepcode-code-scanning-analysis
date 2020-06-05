@@ -18,7 +18,7 @@ DeepCode Code Scanning Github Action allows to integrate DeepCode's bug finding 
 
    1. [Login](https://www.deepcode.ai/cloud-login) with your DeepCode account.
    2. Under Account you can find a section "Deepcode API tokens".
-   3. Create a new token by clicking on "Create new session token"
+   3. Create a new token by clicking on "Create new session token".
    4. Copy the token and use it to create a secret in your Github repository.
 
 ### Create api key in github repository
