@@ -1,4 +1,4 @@
-> This action requires that you've enabled [code scanning](https://help.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/enabling-code-scanning)(currently in beta).
+> This action requires that you've enabled [code scanning](https://help.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/enabling-code-scanning) (currently in beta).
 
 # DeepCode Code Scanning Github Action
 
