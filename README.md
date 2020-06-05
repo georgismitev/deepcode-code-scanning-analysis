@@ -1,19 +1,7 @@
-## Testing and building instructions
+> This action requires that you've enabled [code scanning](https://help.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/enabling-code-scanning)(currently in beta).
 
-### Prerequisites
+# DeepCode Code Scanning Github Action
 
-- [act](https://github.com/nektos/act)
+## What is it?
 
-### Commands
-
-```bash
-docker rm -f $(docker ps -qa) && docker rmi -f $(docker images -aq --filter "since=nektos/act-environments-ubuntu:18.04") && act -j Deepcode-Build -v
-
-docker rm -f $(docker ps -qa) && docker rmi -f $(docker images -aq) && act -j Deepcode-Build -v
-
-docker rm -f $(docker ps -qa)
-docker rmi -f $(docker images -aq --filter "since=nektos/act-environments-ubuntu:18.04")
-act -j Deepcode-Build -v
-
-docker build -t deepcodeg/deepcode-code-scanning-analysis .
-````
+DeepCode Code Scanning Github Action allows to integrate DeepCode's bug finding capabilities within your code scanning pipeline. When a commit is triggered, [DeepCode](https://www.deepcode.ai) finds bugs and security vulnerabilities and repost them as part of your repository's code scanning alerts.
