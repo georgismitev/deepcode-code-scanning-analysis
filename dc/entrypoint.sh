@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-# PARAMETERS
-FILES_DIR="/src"
-
-CONFIG_FILE="/dc/config.json"
 OUTPUT_FILE="/dc/output.json"
 ANALYSIS_DIR="/dc/src"
 
-if ! [ -d "$FILES_DIR" ]
+if ! [ -d "$GITHUB_WORKSPACE" ]
 then
-  echo "$FILES_DIR directory not found."
+  echo "$GITHUB_WORKSPACE directory not found."
   exit 1
 fi
 
@@ -26,16 +22,15 @@ if [ "$TIMEOUT" -eq 0 ] 2>&3; then
 fi
 
 echo "External environment variables: DEBUG=$DEBUG TIMEOUT=$TIMEOUT" >&3
-echo "DeepCode config file: "$(cat $CONFIG_FILE) >&3
 
 # SUPPORT FUNCTIONS
 function load_src_files {
-  codacy_files=$(cd $FILES_DIR || exit; find . -type f -exec echo {} \; | cut -c3-)
+  codacy_files=$(cd $GITHUB_WORKSPACE || exit; find . -type f -exec echo {} \; | cut -c3-)
 }
 
 function create_symlink {
   local file="$1"
-  final_file="$FILES_DIR/$file"
+  final_file="$GITHUB_WORKSPACE/$file"
   if [ -f "$final_file" ]; then
     link_file="$ANALYSIS_DIR/$file"
     parent_dir=$(dirname "$link_file")
@@ -69,7 +64,7 @@ done <<< "$codacy_files"
 
 # Spawn a child process for the analysis
 echo "Spawning analysis child process." >&3
-(deepcode -c "$CONFIG_FILE" analyze -l -s -p "$ANALYSIS_DIR" 2>&3 >"$OUTPUT_FILE")&
+(deepcode -a "$DEEPCODE_TOKEN" analyze -l -s -p "$ANALYSIS_DIR" 2>&3 >"$OUTPUT_FILE")&
 analysis_pid=$!
 
 # in the background, sleep for $TIMEOUT secs then kill the analysis process.
