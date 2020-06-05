@@ -1,0 +1,8 @@
+name: "deepcode-analysis"
+description: "DeepCode Analysis is the fastest and most powerful semantic analysis to find bugs in your code."
+runs:
+  using: "docker"
+  image: "Dockerfile"
+branding:
+  icon: "umbrella"
+  color: "blue"
