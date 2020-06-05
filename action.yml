@@ -2,7 +2,7 @@ name: "deepcode-code-scanning-analysis"
 description: "DeepCode Analysis is the fastest and most powerful semantic analysis to find bugs in your code."
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "docker://deepcodeg/deepcode-code-scanning-analysis:latest"
 branding:
   icon: "search"
   color: "blue"
