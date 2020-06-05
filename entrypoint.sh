@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-OUTPUT_FILE="/dc/output.json"
-ANALYSIS_DIR="/dc/src"
+OUTPUT_FILE="output.json"
+ANALYSIS_DIR="/deepcode/src"
 
 if ! [ -d "$GITHUB_WORKSPACE" ]
 then
@@ -25,7 +25,7 @@ echo "External environment variables: DEBUG=$DEBUG TIMEOUT=$TIMEOUT" >&3
 
 # SUPPORT FUNCTIONS
 function load_src_files {
-  codacy_files=$(cd $GITHUB_WORKSPACE || exit; find . -type f -exec echo {} \; | cut -c3-)
+  files=$(cd $GITHUB_WORKSPACE || exit; find . -type f -exec echo {} \; | cut -c3-)
 }
 
 function create_symlink {
@@ -60,7 +60,7 @@ rm -rf "$ANALYSIS_DIR"
 mkdir -p "$ANALYSIS_DIR"
 while read -r file; do
   create_symlink "$file"
-done <<< "$codacy_files"
+done <<< "$files"
 
 # Spawn a child process for the analysis
 echo "Spawning analysis child process." >&3
@@ -103,10 +103,6 @@ if [ $analysis_exitcode -eq 0 ]; then
   exit 0
 fi
 
-
-# FORMAT OUTPUT
-echo "Converting DeepCode output to Codacy format." >&3
-
 declare -A RULEMAP
 
 output=$(cat $OUTPUT_FILE)
@@ -135,8 +131,9 @@ fi
 
 # cat $OUTPUT_FILE
 
-# TODO: make sure the following line does not throw an error
-python /dc/deepcode_to_sarif.py $OUTPUT_FILE
+# TODO: make sure the following line does not throw an error and 
+# handle this case properly with proper exit codes and messages
+python /deepcode/deepcode_to_sarif.py $OUTPUT_FILE
 
 echo "Success." >&3
 exit 0

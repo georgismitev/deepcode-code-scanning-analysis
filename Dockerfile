@@ -7,9 +7,7 @@ RUN apk add --no-cache --virtual .build-deps g++ libffi-dev \
  && pip install deepcode \
  && apk del .build-deps
 
-COPY dc/ /dc/
+COPY entrypoint.sh /deepcode/entrypoint.sh
+COPY deepcode_to_sarif.py /deepcode/deepcode_to_sarif.py
 
-RUN adduser -u 2004 -D docker
-RUN chown -R docker:docker /dc
-
-CMD [ "bash", "/dc/entrypoint.sh" ]
+CMD [ "bash", "/deepcode/entrypoint.sh" ]
