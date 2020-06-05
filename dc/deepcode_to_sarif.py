@@ -5,7 +5,7 @@ class DeepCodeToSarif:
   def tool(self):
     output = dict()
     output["driver"] = dict()
-    output["driver"]["name"] = "DeepCode"
+    output["driver"]["name"] = "A DeepCode analysis"
 
     rules = []
     for suggestion_order in self.deepcode_json["results"]["suggestions"]:
