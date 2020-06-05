@@ -42,18 +42,7 @@ Create a file `.github/workflows/deepcode-analysis.yml` and insert the following
 ```yml
 name: A DeepCode analysis
 
-on:
-  # trigger a deepcode analysis on pushes to the master branch
-  push:
-    branches:
-      - master
-  # trigger a deepcode analysis on a pull request against the master branch
-  pull_request:
-    branches:
-      - master
-  # trigger a deepcode analysis every day at 18:00 o'clock
-  schedule:
-    - cron: '0 18 * * *'
+on: [push]
 
 jobs:
   Deepcode-Build:
