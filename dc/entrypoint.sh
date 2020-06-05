@@ -136,7 +136,7 @@ fi
 # cat $OUTPUT_FILE
 
 # TODO: make sure the following line does not throw an error
-python deepcode_to_sarif.py $OUTPUT_FILE
+python /dc/deepcode_to_sarif.py $OUTPUT_FILE
 
 echo "Success." >&3
 exit 0
