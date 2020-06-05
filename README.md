@@ -37,6 +37,8 @@ DeepCode Code Scanning Github Action allows to integrate DeepCode's bug finding 
 
 ### Example usage
 
+Create a file `.github/workflows/deepcode-analysis.yml` and insert the following snippet:
+
 ```yml
 name: A DeepCode analysis
 
