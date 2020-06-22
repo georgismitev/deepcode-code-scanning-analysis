@@ -42,7 +42,14 @@ Create a file `.github/workflows/deepcode-analysis.yml` and insert the following
 ```yml
 name: A DeepCode analysis
 
-on: [push]
+on:
+  # Trigger the workflow on push or pull request, but only for the master branch
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   Deepcode-Build:
