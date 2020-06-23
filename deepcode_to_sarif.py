@@ -5,7 +5,7 @@ class DeepCodeToSarif:
   def tool(self):
     output = dict()
     output["driver"] = dict()
-    output["driver"]["name"] = "A DeepCode analysis"
+    output["driver"]["name"] = "DeepCode"
 
     rules = []
     for suggestion_order in self.deepcode_json["results"]["suggestions"]:
@@ -68,8 +68,8 @@ class DeepCodeToSarif:
       }
 
       code_thread_flows = []
-      if len(self.suggestions[suggestion]["markers"]) > 1:
-        i = 0
+      i = 0
+      if len(self.suggestions[suggestion]["markers"]) >= 1:
         for marker_positions in self.suggestions[suggestion]["markers"]:
           for position in marker_positions["pos"]:
             code_thread_flows.append(
@@ -92,6 +92,26 @@ class DeepCodeToSarif:
               }
             )
             i = i + 1
+      else:
+        code_thread_flows.append(
+          {
+            "location": {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": self.suggestions[suggestion]["file"],
+                  "uriBaseId": "%SRCROOT%",
+                  "index": i
+                },
+                "region": {
+                  "startLine": self.suggestions[suggestion]["rows"][0],
+                  "endLine": self.suggestions[suggestion]["rows"][1],
+                  "startColumn": self.suggestions[suggestion]["cols"][0],
+                  "endColumn": self.suggestions[suggestion]["cols"][1]
+                }
+              }
+            }
+          }
+        )
 
       result["codeFlows"] = []
       result["codeFlows"].append(
